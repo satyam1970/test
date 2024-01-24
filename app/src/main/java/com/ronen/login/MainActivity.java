@@ -16,31 +16,28 @@ public class MainActivity extends AppCompatActivity {
     private final Activity TAG = this;
     private boolean isUppercase = false, isMinimumChar = false,
                     isSpacialChar = false, isNumeric = false, username = false;
-    String getUsername = binding.UsernameEditText.getText().toString(),
-            getPassword = binding.PasswordEditText.getText().toString();
+    String uName, pWord;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
         setContentView(view);
+        uName = binding.UsernameEditText.getText().toString().trim();
+        pWord = binding.PasswordEditText.getText().toString().trim();
 
-        binding.finalSubmitButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                getData();
-                isBlank();
-                changingData();
-            }
+        binding.finalSubmitButton.setOnClickListener(v -> {
+            getData();
+            isBlank();
+            changingData();
         });
-
     }
     private void getData(){
-        if(getUsername.length()==0){
+        if(uName.isEmpty()){
             binding.UsernameWarning.setVisibility(View.VISIBLE);
-
         }
-        if(getPassword.length()==0){
+        if(pWord.isEmpty()){
             binding.PasswordWarning.setVisibility(View.VISIBLE);
         }
     }
@@ -48,30 +45,30 @@ public class MainActivity extends AppCompatActivity {
         Toast.makeText(TAG, string, Toast.LENGTH_SHORT).show();
     }
     private void isBlank(){
-        if(getUsername.length()>0 &&
+        if(uName.length()>0 &&
         binding.UsernameWarning.getVisibility() == View.VISIBLE){
             binding.UsernameWarning.setVisibility(View.GONE);
         }
-        if (getPassword.length()>0 &&
+        if (pWord.length()>0 &&
         binding.PasswordWarning.getVisibility() == View.VISIBLE){
             binding.PasswordWarning.setVisibility(View.GONE);
         }
     }
 
-    private void validationCheck(){
-        if (getPassword.length()>=7){
+    private void validationCheck(String password){
+        if (password.length()>=7){
             isMinimumChar = true;
             binding.firstImageView.setImageResource(R.drawable.baseline_check_circle_24_green);
         }
-        if(getPassword.matches("(.*[A-Z].*)")){
+        if(password.matches("(.*[A-Z].*)")){
             isUppercase = true;
             binding.secondImageView.setImageResource(R.drawable.baseline_check_circle_24_green);
         }
-        if(getPassword.matches("(.*[0-9].*)")){
+        if(password.matches("(.*[0-9].*)")){
             isNumeric = true;
             binding.thirdImageView.setImageResource(R.drawable.baseline_check_circle_24_green);
         }
-        if (getPassword.matches("^(?=.*[_.()]).*$")){
+        if (password.matches("^(?=.*[_.()]).*$")){
             isSpacialChar = true;
             binding.fourthImageView.setImageResource(R.drawable.baseline_check_circle_24_green);
         }
@@ -81,17 +78,15 @@ public class MainActivity extends AppCompatActivity {
         binding.UsernameEditText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
             }
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                validationCheck();
+                validationCheck(pWord);
             }
 
             @Override
             public void afterTextChanged(Editable s) {
-
             }
         });
     }
