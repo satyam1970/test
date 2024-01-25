@@ -14,16 +14,59 @@
     android:gravity="center"
     android:textColor="@color/white"
     android:textSize="18sp"/>
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/MenuRecyclerView"
+    <LinearLayout
+        android:id="@+id/MenuContainer"
+        android:layout_below="@id/mainHeading"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin = "10sp"
-        android:layout_below="@+id/mainHeading"/>
+        android:layout_height="50sp"
+        android:orientation="horizontal"
+        android:weightSum="3"
+        android:layout_marginStart="5sp"
+        android:layout_marginEnd="5sp">
+        <RelativeLayout
+            android:layout_width="0sp"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+            <TextView
+                android:id="@+id/nameSorting"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Sort By name"
+                android:textColor="@color/Blue"
+                android:layout_centerInParent="true"/>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="0sp"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+            <TextView
+                android:id="@+id/ageSorting"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Sort By Age"
+                android:textColor="@color/Blue"
+                android:layout_centerInParent="true"/>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="0sp"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+            <TextView
+                android:id="@+id/citySorting"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Sort By City"
+                android:textColor="@color/Blue"
+                android:layout_centerInParent="true"/>
+        </RelativeLayout>
+
+    </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/ItemsRecyclerView"
-        android:layout_below="@+id/MenuRecyclerView"
+        android:layout_below="@+id/MenuContainer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="10sp"/>

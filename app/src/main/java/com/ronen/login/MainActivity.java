@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -25,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
     private ActivityMainBinding binding;
     private final Activity TAG = this;
     private boolean isUppercase = false, isMinimumChar = false,
-                    isSpacialChar = false, isNumeric = false, username = false;
+                    isSpacialChar = false, isNumeric = false, username = false, isRegistration= false;
 
     private FirebaseAuthHelper firebaseAuthHelper;
     private FirebaseHelper firebaseHelper;
@@ -40,51 +41,68 @@ public class MainActivity extends AppCompatActivity {
         firebaseAuthHelper = new FirebaseAuthHelper(this);
         firebaseHelper = new FirebaseHelper();
         binding.finalSubmitButton.setOnClickListener(v -> {
-            getData();
-            isBlank();
             changingData();
-            firebaseAuthHelper.SignUp(binding.EmailEditText.getText().toString().trim(), binding.PasswordEditText.getText().toString().trim(), new FirebaseAuthHelper.fCallback() {
-                @Override
-                public void onComplete(FirebaseUser user) {
-                    makeToast("User Created");
-                    initIntent(TAG, Signin.class);
-                    firebaseHelper.createDatabase();
-                }
-                @Override
-                public void onFailed(String errorMessage) {
+            if(binding.UsernameEditText.getText().toString().trim().length()>0 &&
+                binding.PasswordEditText.getText().toString().trim().length()>0 &&
+                binding.EmailEditText.getText().toString().trim().length()>0){
 
+                if(isRegistration) {
+                    firebaseAuthHelper.SignUp(binding.EmailEditText.getText().toString().trim(), binding.PasswordEditText.getText().toString().trim(), new FirebaseAuthHelper.fCallback() {
+                        @Override
+                        public void onComplete(FirebaseUser user) {
+                            makeToast("User Created");
+                            initIntent(TAG, Signin.class);
+                            firebaseHelper.createDatabase();
+                        }
+
+                        @Override
+                        public void onFailed(String errorMessage) {
+
+                        }
+                    });
                 }
-            });
+            }else {
+                if (binding.UsernameEditText.getText().toString().trim().length() == 0) {
+                    binding.UsernameWarning.setVisibility(View.VISIBLE);
+                }
+                if (binding.PasswordEditText.getText().toString().trim().length() == 0) {
+                    binding.PasswordWarning.setVisibility(View.VISIBLE);
+                }
+            }
+
+
         });
         binding.loginButton.setOnClickListener(v -> {
             initIntent(TAG, Signin.class);
         });
     }
-    private void getData(){
-        if(binding.UsernameEditText.getText().toString().trim().length()==0){
-            binding.UsernameWarning.setVisibility(View.VISIBLE);
-        }
-        if(binding.PasswordEditText.getText().toString().trim().length()==0){
-            binding.PasswordWarning.setVisibility(View.VISIBLE);
-        }
-    }
     private void makeToast(String string){
         Toast.makeText(TAG, string, Toast.LENGTH_SHORT).show();
     }
-    private void isBlank(){
-        if(binding.UsernameEditText.getText().toString().trim().length()>0 &&
+    private void isBlank(String userName, String passWord){
+        if(userName.length()>0 &&
         binding.UsernameWarning.getVisibility() == View.VISIBLE){
             binding.UsernameWarning.setVisibility(View.GONE);
         }
-        if (binding.PasswordEditText.getText().toString().trim().length()>0 &&
+        if (passWord.length()>0 &&
         binding.PasswordWarning.getVisibility() == View.VISIBLE){
             binding.PasswordWarning.setVisibility(View.GONE);
         }
     }
 
-    private void validationCheck(String password){
+    private void checkAllData(String email , String password) {
+        if (isMinimumChar && isSpacialChar && isNumeric && isUppercase && binding.EmailEditText.getText().toString().trim().length() > 0) {
+            isRegistration = true;
+            binding.finalSubmitButton.setTextColor(Color.WHITE);
+        } else {
+            isRegistration = false;
+        }
+    }
+
+    private void validationCheck( String password){
+        isBlank(binding.UsernameEditText.getText().toString(), binding.PasswordEditText.getText().toString());
         if (password.length()>=7){
-            isMinimumChar = true;
+            isMinimumChar= true;
             binding.firstImageView.setImageResource(R.drawable.baseline_check_circle_24_green);
         }
         if(password.matches("(.*[A-Z].*)")){
@@ -95,25 +113,28 @@ public class MainActivity extends AppCompatActivity {
             isNumeric = true;
             binding.thirdImageView.setImageResource(R.drawable.baseline_check_circle_24_green);
         }
-        if (password.matches("^(?=.*[_.()]).*$")){
+        if (password.matches("^(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{7,}$")){
             isSpacialChar = true;
             binding.fourthImageView.setImageResource(R.drawable.baseline_check_circle_24_green);
         }
+        checkAllData(binding.EmailEditText.getText().toString().trim(),
+                binding.PasswordEditText.getText().toString().trim());
     }
 
     private void changingData(){
-        binding.UsernameEditText.addTextChangedListener(new TextWatcher() {
+        binding.PasswordEditText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
             }
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                validationCheck(binding.PasswordEditText.getText().toString());
+                validationCheck(binding.PasswordEditText.getText().toString().trim());
             }
 
             @Override
             public void afterTextChanged(Editable s) {
+                validationCheck(binding.PasswordEditText.getText().toString().trim());
             }
         });
     }
