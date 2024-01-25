@@ -3,6 +3,8 @@ package com.ronen.login;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -16,7 +18,7 @@ public class MainActivity extends AppCompatActivity {
     private final Activity TAG = this;
     private boolean isUppercase = false, isMinimumChar = false,
                     isSpacialChar = false, isNumeric = false, username = false;
-    String uName, pWord;
+    String uName, pWord, email;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,13 +26,18 @@ public class MainActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
         setContentView(view);
+
         uName = binding.UsernameEditText.getText().toString().trim();
         pWord = binding.PasswordEditText.getText().toString().trim();
+        email = binding.EmailEditText.getText().toString().trim();
 
         binding.finalSubmitButton.setOnClickListener(v -> {
             getData();
             isBlank();
             changingData();
+        });
+        binding.loginButton.setOnClickListener(v -> {
+            initIntent(TAG, Signin.class);
         });
     }
     private void getData(){
@@ -90,5 +97,8 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
-
+    private void initIntent(Context context, Class c){
+        Intent intent = new Intent(context, c);
+        startActivity(intent);
+    }
 }

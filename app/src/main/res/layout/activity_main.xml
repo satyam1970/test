@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="60sp"
         android:layout_alignParentTop="true"
-        android:text="@string/login"
+        android:text="SignUp"
         android:textColor="@color/white"
         android:textSize="30sp"
         android:gravity="center"
@@ -40,7 +40,7 @@
                 android:textColor="@color/black"
                 android:inputType="text" />
         </com.google.android.material.textfield.TextInputLayout>
-        
+
         <TextView
             android:id="@+id/UsernameWarning"
             android:layout_below="@+id/usernameField"
@@ -50,10 +50,29 @@
             android:textSize="9sp"
             android:textColor="@color/Warning_Red"
             android:visibility="gone"/>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/emailField"
+            android:layout_width="match_parent"
+            android:layout_height="55sp"
+            android:layout_marginTop="5sp"
+            android:layout_below="@id/UsernameWarning"
+            style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.Dense">
+            <EditText
+                android:id="@+id/EmailEditText"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:hint="Email"
+                android:textColor="@color/black"
+                android:inputType="text" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+
         
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/passwordField"
-            android:layout_below="@+id/UsernameWarning"
+            android:layout_below="@+id/emailField"
             android:layout_width="match_parent"
             android:layout_height="55sp"
             android:layout_marginTop="5sp"
@@ -196,6 +215,15 @@
             android:background="@drawable/gradient_box"
             android:textSize="15sp"
             android:textStyle="bold"/>
+        <TextView
+            android:id="@+id/loginButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Login Here"
+            android:layout_below="@+id/finalSubmitButton"
+            android:gravity="center"
+            android:layout_marginTop="20sp"
+            android:textColor="@color/Blue"/>
     </RelativeLayout>
 
 </RelativeLayout>

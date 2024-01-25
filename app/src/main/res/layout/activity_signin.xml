@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <TextView
+        android:id="@+id/mainHeading"
+        android:layout_width="match_parent"
+        android:layout_height="60sp"
+        android:layout_alignParentTop="true"
+        android:text="@string/login"
+        android:textColor="@color/white"
+        android:textSize="30sp"
+        android:gravity="center"
+        android:background="@color/black"
+        android:textStyle="bold"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginStart="10sp"
+        android:layout_marginEnd="10sp"
+        android:layout_below="@+id/mainHeading">
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/usernameField"
+            android:layout_width="match_parent"
+            android:layout_height="55sp"
+            android:layout_marginTop="5sp"
+            style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.Dense">
+            <EditText
+                android:id="@+id/UsernameEditText"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:hint="@string/username"
+                android:textColor="@color/black"
+                android:inputType="text" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            android:id="@+id/UsernameWarning"
+            android:layout_below="@+id/usernameField"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/please_enter_username"
+            android:textSize="9sp"
+            android:textColor="@color/Warning_Red"
+            android:visibility="gone"/>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/passwordField"
+            android:layout_below="@+id/usernameField"
+            android:layout_width="match_parent"
+            android:layout_height="55sp"
+            android:layout_marginTop="5sp"
+            app:passwordToggleEnabled="true"
+            style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.Dense">
+            <EditText
+                android:id="@+id/PasswordEditText"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:hint="@string/password"
+                android:textColor="@color/black"
+                android:inputType="text" />
+        </com.google.android.material.textfield.TextInputLayout>
+        <TextView
+            android:id="@+id/PasswordWarning"
+            android:layout_below="@+id/passwordField"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/please_enter_username"
+            android:textSize="9sp"
+            android:textColor="@color/Warning_Red"
+            android:visibility="gone"/>
+
+        <TextView
+            android:id="@+id/finalSubmitButton"
+            android:layout_width="match_parent"
+            android:layout_height="60sp"
+            android:layout_below="@id/PasswordWarning"
+            android:text="Submit"
+            android:layout_marginTop="20sp"
+            android:gravity="center"
+            android:background="@drawable/gradient_box"
+            android:textSize="15sp"
+            android:textStyle="bold"/>
+        <TextView
+            android:id="@+id/signUpButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Sign Up"
+            android:layout_below="@+id/finalSubmitButton"
+            android:gravity="center"
+            android:layout_marginTop="20sp"
+            android:textColor="@color/Blue"/>
+    </RelativeLayout>
+
+</RelativeLayout>

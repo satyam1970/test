@@ -44,8 +44,8 @@ dependencies {
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
 
     //Firebase Dependencies
-//    implementation ("com.google.firebase:firebase-auth:22.0.0")
-//    implementation ("com.google.firebase:firebase-database:22.0.0")
+    implementation ("com.google.firebase:firebase-auth:22.0.0")
+    implementation ("com.google.firebase:firebase-database:22.0.0")
 
     //noinspection GradleCompatible
 
