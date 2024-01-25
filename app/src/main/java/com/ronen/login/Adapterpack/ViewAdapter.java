@@ -13,6 +13,8 @@ import com.ronen.login.DataModels.FirebaseDataModel;
 import com.ronen.login.databinding.CustomFirebaseDataLayoutBinding;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class ViewAdapter extends RecyclerView.Adapter<ViewAdapter.viewHolder>{
@@ -48,6 +50,19 @@ public class ViewAdapter extends RecyclerView.Adapter<ViewAdapter.viewHolder>{
     @Override
     public int getItemCount() {
         return firebaseDataModel.size();
+    }
+
+    public void sortByName(){
+        Collections.sort(firebaseDataModel, Comparator.comparing(FirebaseDataModel::getName));
+        notifyDataSetChanged();
+    }
+    public void sortByAge(){
+        Collections.sort(firebaseDataModel, Comparator.comparing(FirebaseDataModel::getAge));
+        notifyDataSetChanged();
+    }
+    public void sortByCity(){
+        Collections.sort(firebaseDataModel, Comparator.comparing(FirebaseDataModel::getCity));
+        notifyDataSetChanged();
     }
 
     public void setUserList(List<FirebaseDataModel> firebaseDataModelList) {

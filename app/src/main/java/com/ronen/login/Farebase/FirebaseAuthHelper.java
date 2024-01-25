@@ -45,7 +45,10 @@ public class FirebaseAuthHelper {
                            callback.onComplete(regUser);
 //                           Intent intent = new Intent(mContext.getApplicationContext(), Dashboard.class);
 //                           mContext.startActivity(intent);
+                           
                        }
+                   }else{
+                       Toast.makeText(activity, "Wrong PAssword", Toast.LENGTH_SHORT).show();
                    }
                 });
 

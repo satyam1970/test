@@ -13,6 +13,8 @@ import com.ronen.login.Farebase.FirebaseHelper;
 import com.ronen.login.databinding.ActivityDashboardBinding;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class Dashboard extends AppCompatActivity implements FirebaseHelper.RetreiveDataSet{
@@ -35,6 +37,17 @@ public class Dashboard extends AppCompatActivity implements FirebaseHelper.Retre
         firebaseHelper.setRetreiveDataSet(this);
         firebaseHelper.retriveDataSet();
 
+        binding.nameSorting.setOnClickListener(v ->{
+            viewAdapter.sortByName();
+        });
+
+        binding.ageSorting.setOnClickListener(v ->{
+            viewAdapter.sortByAge();
+        });
+
+        binding.citySorting.setOnClickListener(v ->{
+            viewAdapter.sortByCity();
+        });
     }
 
     @Override
@@ -42,6 +55,8 @@ public class Dashboard extends AppCompatActivity implements FirebaseHelper.Retre
         viewAdapter.setUserList(firebaseDataModelList);
         viewAdapter.notifyDataSetChanged();
     }
+
+
 
     @Override
     public void onFailed(String ErrorMsg) {
