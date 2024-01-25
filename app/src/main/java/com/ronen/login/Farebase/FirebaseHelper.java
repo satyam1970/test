@@ -37,11 +37,12 @@ public class FirebaseHelper {
     public void createDatabase(){
         if (firebaseUser!=null){
             String uid = firebaseUser.getUid();
+            String currentMillis = String.valueOf(System.currentTimeMillis());
             FirebaseDataModel dataModel = new FirebaseDataModel();
-            /*dataModel.setName(name);
-            dataModel.setAge(age);
-            dataModel.setCity(username);*/
-            databaseReference.child("Users").child(uid).setValue(dataModel);
+            dataModel.setName("name");
+            dataModel.setAge(12);
+            dataModel.setCity("Hyderabad");
+            databaseReference.child("Users").child(uid).child(currentMillis).setValue(dataModel);
         }
     }
     public void setRetreiveDataSet(RetreiveDataSet retreiveDataSet){

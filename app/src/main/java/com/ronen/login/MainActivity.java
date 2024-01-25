@@ -52,7 +52,6 @@ public class MainActivity extends AppCompatActivity {
                         @Override
                         public void onComplete(FirebaseUser user) {
                             makeToast("User Created");
-                            initIntent(TAG, Signin.class);
                             firebaseHelper.createDatabase();
                         }
 
