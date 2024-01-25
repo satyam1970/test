@@ -11,6 +11,9 @@ public class FirebaseDataModel {
         this.Age = age;
     }
 
+    public FirebaseDataModel() {
+    }
+
     public String getName() {
         return name;
     }
@@ -21,5 +24,17 @@ public class FirebaseDataModel {
 
     public int getAge() {
         return Age;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public void setAge(int age) {
+        Age = age;
     }
 }

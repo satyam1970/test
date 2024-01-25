@@ -20,10 +20,15 @@ public class ViewAdapter extends RecyclerView.Adapter<ViewAdapter.viewHolder>{
     private CustomFirebaseDataLayoutBinding binding;
     private List<FirebaseDataModel> firebaseDataModel = new ArrayList<>();
     private Context mContext;
-    public void attachDataModels(FirebaseDataModel fDataModel){
-        firebaseDataModel.add(fDataModel);
-        notifyDataSetChanged();
+
+    public ViewAdapter(ArrayList<FirebaseDataModel> es) {
+
     }
+    public ViewAdapter(){
+
+    }
+
+
     @NonNull
     @Override
     public viewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -43,6 +48,10 @@ public class ViewAdapter extends RecyclerView.Adapter<ViewAdapter.viewHolder>{
     @Override
     public int getItemCount() {
         return firebaseDataModel.size();
+    }
+
+    public void setUserList(List<FirebaseDataModel> firebaseDataModelList) {
+        this.firebaseDataModel= firebaseDataModelList;
     }
 
     static class viewHolder extends RecyclerView.ViewHolder{

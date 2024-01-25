@@ -1,5 +1,7 @@
 package com.ronen.login.Farebase;
 
+import static androidx.core.content.ContextCompat.startActivity;
+
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -41,8 +43,8 @@ public class FirebaseAuthHelper {
                        FirebaseUser regUser = firebaseAuth.getCurrentUser();
                        if(regUser!=null){
                            callback.onComplete(regUser);
-                           Intent intent = new Intent(mContext, Dashboard.class);
-                           mContext.startActivity(intent);
+//                           Intent intent = new Intent(mContext.getApplicationContext(), Dashboard.class);
+//                           mContext.startActivity(intent);
                        }
                    }
                 });

@@ -53,7 +53,7 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/passwordField"
-            android:layout_below="@+id/usernameField"
+            android:layout_below="@+id/UsernameWarning"
             android:layout_width="match_parent"
             android:layout_height="55sp"
             android:layout_marginTop="5sp"

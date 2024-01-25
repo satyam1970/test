@@ -45,7 +45,6 @@ dependencies {
 
     //Firebase Dependencies
     implementation ("com.google.firebase:firebase-auth:22.0.0")
-    implementation ("com.google.firebase:firebase-database:22.0.0")
 
     //noinspection GradleCompatible
 

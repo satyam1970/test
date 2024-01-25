@@ -1,5 +1,6 @@
 package com.ronen.login;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
@@ -11,6 +12,13 @@ import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.ronen.login.Farebase.FirebaseAuthHelper;
+import com.ronen.login.Farebase.FirebaseHelper;
 import com.ronen.login.databinding.ActivityMainBinding;
 
 public class MainActivity extends AppCompatActivity {
@@ -18,7 +26,9 @@ public class MainActivity extends AppCompatActivity {
     private final Activity TAG = this;
     private boolean isUppercase = false, isMinimumChar = false,
                     isSpacialChar = false, isNumeric = false, username = false;
-    String uName, pWord, email;
+
+    private FirebaseAuthHelper firebaseAuthHelper;
+    private FirebaseHelper firebaseHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,24 +37,34 @@ public class MainActivity extends AppCompatActivity {
         View view = binding.getRoot();
         setContentView(view);
 
-        uName = binding.UsernameEditText.getText().toString().trim();
-        pWord = binding.PasswordEditText.getText().toString().trim();
-        email = binding.EmailEditText.getText().toString().trim();
-
+        firebaseAuthHelper = new FirebaseAuthHelper(this);
+        firebaseHelper = new FirebaseHelper();
         binding.finalSubmitButton.setOnClickListener(v -> {
             getData();
             isBlank();
             changingData();
+            firebaseAuthHelper.SignUp(binding.EmailEditText.getText().toString().trim(), binding.PasswordEditText.getText().toString().trim(), new FirebaseAuthHelper.fCallback() {
+                @Override
+                public void onComplete(FirebaseUser user) {
+                    makeToast("User Created");
+                    initIntent(TAG, Signin.class);
+                    firebaseHelper.createDatabase();
+                }
+                @Override
+                public void onFailed(String errorMessage) {
+
+                }
+            });
         });
         binding.loginButton.setOnClickListener(v -> {
             initIntent(TAG, Signin.class);
         });
     }
     private void getData(){
-        if(uName.isEmpty()){
+        if(binding.UsernameEditText.getText().toString().trim().length()==0){
             binding.UsernameWarning.setVisibility(View.VISIBLE);
         }
-        if(pWord.isEmpty()){
+        if(binding.PasswordEditText.getText().toString().trim().length()==0){
             binding.PasswordWarning.setVisibility(View.VISIBLE);
         }
     }
@@ -52,11 +72,11 @@ public class MainActivity extends AppCompatActivity {
         Toast.makeText(TAG, string, Toast.LENGTH_SHORT).show();
     }
     private void isBlank(){
-        if(uName.length()>0 &&
+        if(binding.UsernameEditText.getText().toString().trim().length()>0 &&
         binding.UsernameWarning.getVisibility() == View.VISIBLE){
             binding.UsernameWarning.setVisibility(View.GONE);
         }
-        if (pWord.length()>0 &&
+        if (binding.PasswordEditText.getText().toString().trim().length()>0 &&
         binding.PasswordWarning.getVisibility() == View.VISIBLE){
             binding.PasswordWarning.setVisibility(View.GONE);
         }
@@ -89,7 +109,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                validationCheck(pWord);
+                validationCheck(binding.PasswordEditText.getText().toString());
             }
 
             @Override

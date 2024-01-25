@@ -6,29 +6,50 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.ronen.login.Farebase.FirebaseAuthHelper;
+import com.ronen.login.Farebase.FirebaseHelper;
 import com.ronen.login.databinding.ActivitySigninBinding;
 
 public class Signin extends AppCompatActivity {
 
     ActivitySigninBinding binding;
-    String uName, pWord;
     private final Activity TAG = this;
+    private FirebaseAuthHelper firebaseAuthHelper;
+    private FirebaseHelper firebaseHelper;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivitySigninBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        uName = binding.UsernameEditText.getText().toString().trim();
-        pWord = binding.PasswordEditText.getText().toString().trim();
+        
 
+        firebaseHelper = new FirebaseHelper();
+        
+        firebaseAuthHelper = new FirebaseAuthHelper(this);
         binding.finalSubmitButton.setOnClickListener(v ->{
-            if(uName.isEmpty()){
+            if(binding.UsernameEditText.getText().toString().trim().isEmpty()){
                 binding.UsernameWarning.setVisibility(View.VISIBLE);
             }
-            if (pWord.isEmpty()){
+            if (binding.PasswordEditText.getText().toString().trim().isEmpty()){
                 binding.PasswordWarning.setVisibility(View.VISIBLE);
             }
+            isBlank();
+            firebaseAuthHelper.Login(binding.UsernameEditText.getText().toString().trim(), 
+                    binding.PasswordEditText.getText().toString().trim(), new FirebaseAuthHelper.fCallback() {
+                @Override
+                public void onComplete(FirebaseUser user) {
+                    startActivity(new Intent(TAG, Dashboard.class));
+                    Toast.makeText(TAG, "User Logged in", Toast.LENGTH_SHORT).show();
+                }
+                @Override
+                public void onFailed(String errorMessage) {
+
+                }
+            });
         });
 
 
@@ -37,10 +58,10 @@ public class Signin extends AppCompatActivity {
         });
     }
     private void isBlank(){
-        if(uName.length()>0 && binding.UsernameWarning.getVisibility()== View.VISIBLE){
+        if(binding.UsernameEditText.getText().toString().trim().length()>0 && binding.UsernameWarning.getVisibility()== View.VISIBLE){
             binding.UsernameWarning.setVisibility(View.GONE);
         }
-        if(pWord.length()>0 && binding.PasswordWarning.getVisibility() == View.VISIBLE){
+        if(binding.PasswordEditText.getText().toString().trim().length()>0 && binding.PasswordWarning.getVisibility() == View.VISIBLE){
             binding.PasswordWarning.setVisibility(View.GONE);
         }
     }
