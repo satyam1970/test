@@ -40,8 +40,9 @@ public class MainActivity extends AppCompatActivity {
 
         firebaseAuthHelper = new FirebaseAuthHelper(this);
         firebaseHelper = new FirebaseHelper();
+        changingData();
         binding.finalSubmitButton.setOnClickListener(v -> {
-            changingData();
+
             if(binding.UsernameEditText.getText().toString().trim().length()>0 &&
                 binding.PasswordEditText.getText().toString().trim().length()>0 &&
                 binding.EmailEditText.getText().toString().trim().length()>0){
@@ -79,19 +80,9 @@ public class MainActivity extends AppCompatActivity {
     private void makeToast(String string){
         Toast.makeText(TAG, string, Toast.LENGTH_SHORT).show();
     }
-    private void isBlank(String userName, String passWord){
-        if(userName.length()>0 &&
-        binding.UsernameWarning.getVisibility() == View.VISIBLE){
-            binding.UsernameWarning.setVisibility(View.GONE);
-        }
-        if (passWord.length()>0 &&
-        binding.PasswordWarning.getVisibility() == View.VISIBLE){
-            binding.PasswordWarning.setVisibility(View.GONE);
-        }
-    }
 
     private void checkAllData(String email , String password) {
-        if (isMinimumChar && isSpacialChar && isNumeric && isUppercase && binding.EmailEditText.getText().toString().trim().length() > 0) {
+        if (isMinimumChar && isSpacialChar && isNumeric && isUppercase) {
             isRegistration = true;
             binding.finalSubmitButton.setTextColor(Color.WHITE);
         } else {
@@ -100,7 +91,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void validationCheck( String password){
-        isBlank(binding.UsernameEditText.getText().toString(), binding.PasswordEditText.getText().toString());
         if (password.length()>=7){
             isMinimumChar= true;
             binding.firstImageView.setImageResource(R.drawable.baseline_check_circle_24_green);
@@ -129,6 +119,11 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
+                isRegistration= false;
+                isNumeric=false;
+                isSpacialChar=false;
+                isMinimumChar= false;
+                isUppercase  = false;
                 validationCheck(binding.PasswordEditText.getText().toString().trim());
             }
 
