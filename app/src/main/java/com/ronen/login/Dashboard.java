@@ -32,7 +32,9 @@ public class Dashboard extends AppCompatActivity implements FirebaseHelper.Retre
         binding.ItemsRecyclerView.setAdapter(viewAdapter);
 
         firebaseHelper = new FirebaseHelper(this);
+        firebaseHelper.setRetreiveDataSet(this);
         firebaseHelper.retriveDataSet();
+
     }
 
     @Override

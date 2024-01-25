@@ -1,6 +1,7 @@
 package com.ronen.login.Farebase;
 
 import android.app.Activity;
+import android.util.Log;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -17,13 +18,14 @@ import com.google.firebase.database.ValueEventListener;
 import com.ronen.login.Adapterpack.ViewAdapter;
 import com.ronen.login.DataModels.FirebaseDataModel;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class FirebaseHelper {
     private DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
     private ViewAdapter viewAdapter;
     private RetreiveDataSet retreiveDataSet;
-    private List<FirebaseDataModel> firebaseDataModelList;
+    private List<FirebaseDataModel> firebaseDataModelList = new ArrayList<>();
     FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
     FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
 
@@ -41,6 +43,9 @@ public class FirebaseHelper {
             dataModel.setCity(username);*/
             databaseReference.child("Users").child(uid).setValue(dataModel);
         }
+    }
+    public void setRetreiveDataSet(RetreiveDataSet retreiveDataSet){
+        this.retreiveDataSet = retreiveDataSet;
     }
 
     public void retriveDataSet(){
@@ -62,7 +67,7 @@ public class FirebaseHelper {
 
                     @Override
                     public void onCancelled(@NonNull DatabaseError error) {
-
+                        Log.e("Error", "error"+error.getMessage());
                     }
                 });
         }

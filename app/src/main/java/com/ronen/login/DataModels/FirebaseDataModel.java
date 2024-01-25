@@ -3,12 +3,12 @@ package com.ronen.login.DataModels;
 public class FirebaseDataModel {
     private String name;
     private String city;
-    private int Age;
+    private int age;
 
     public FirebaseDataModel(String name, String city, int age) {
         this.name = name;
         this.city = city;
-        this.Age = age;
+        this.age = age;
     }
 
     public FirebaseDataModel() {
@@ -23,7 +23,7 @@ public class FirebaseDataModel {
     }
 
     public int getAge() {
-        return Age;
+        return age;
     }
 
     public void setName(String name) {
@@ -35,6 +35,6 @@ public class FirebaseDataModel {
     }
 
     public void setAge(int age) {
-        Age = age;
+        age = age;
     }
 }
