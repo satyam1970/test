@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "361279489935",
+    "firebase_url": "https://test-7d25e-default-rtdb.firebaseio.com",
+    "project_id": "test-7d25e",
+    "storage_bucket": "test-7d25e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:361279489935:android:eacfc7cf490cb80838edfa",
+        "android_client_info": {
+          "package_name": "com.ronen.login"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAH7yXRCfphStBZ7evBIpVgnpB6nAmWzfc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
