@@ -51,8 +51,8 @@ public class MainActivity extends AppCompatActivity {
                     firebaseAuthHelper.SignUp(binding.EmailEditText.getText().toString().trim(), binding.PasswordEditText.getText().toString().trim(), new FirebaseAuthHelper.fCallback() {
                         @Override
                         public void onComplete(FirebaseUser user) {
-                            makeToast("User Created");
                             firebaseHelper.createDatabase();
+                            makeToast("User Created");
                         }
 
                         @Override
